@@ -1,0 +1,2 @@
+# AprendiendoSQL
+Capacitación SQL Inicial
