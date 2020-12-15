@@ -1,0 +1,79 @@
+UNIDAD 1:
+Importar base de datos
+
+1. Pasos para importar una la base de datos descargada en el manual de instalación
+a. Abrir Sql Server Managment studio y conectar a la instancia instalada
+b. Clic derecho en la carpeta Databases y elegir la opción Restore Database
+c. Marcar la opción Device y darle clic al botón ...
+d. Dar clic en el botón Add y buscar la ubicación del archivo descargado ‘AdventureWorksDW2017.bak’ (Si no se lo encuentra en el explorador de archivos, mover a manualmente a la ruta C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\Backup)
+e. Dar Ok y restaurar
+
+UNIDAD 2:
+Sintaxis de Select
+
+1. Continuando con el pedido anterior, el equipo de Recursos Humanos, necesita saber cuáles de los empleados que están en estado activo. Para esto hay que listar todos los registros y todos los campos la tabla DimEmployee donde el campo Status sea igual ‘Current’
+
+2. De la misma lista de empleados que solicita el equipo de Recursos Humanos, deberán figurar los empleados que tengan menor antigüedad, por lo tanto, se solicita como parámetro traer los registros
+la tabla DimEmployee donde el campo EmployeeKey sea mayor a 10
+
+Operadores aritméticos, lógicos y de comparación
+
+1. Continuando con el pedido solicitado por el equipo de Recursos Humanos, para poder realizar un subgrupo por edad de empleados en
+estado activo. Para esto listar todos los registros y todos los campos de la tabla DimEmployee donde el campo Status sea igual ‘Current’, el
+campo EmployeeKey sea mayor a 10 y que la fecha de nacimiento de esos empleados sea entre ‘1987-01-01’ y ‘1990-01-01’
+
+2. El equipo de Recursos Humanos necesita realizar un listado de empleados para un grupo de mails y luego enviar comunicados a los
+mismos, donde estén todos los empleados menos ‘Alejandro’, ‘Simon’ y ‘Fred’. Para esto hay que listar todos los registros y todos los campos de
+la tabla DimEmployee donde el campo FirstName no tenga los textos ‘Alejandro’, ‘Simon’ y ‘Fred’ además se solicitó ParentEmployeeKey sea igual a 112
+
+UNIDAD 3:
+Tipos de Joins y alternativas de sintaxis
+
+1. El equipo de Administración y Finanzas necesita realizar un análisis de tasa de cambio, para esto es necesario desarrollar una consulta que
+devuelva todos los campos de las tablas DimDate, FactCurrencyRate, partiendo de la tabla DimDate utilizando LEFT JOIN, filtrando que el
+campo DateKey de la tabla DimDate sea igual a 20141231. (Fijarse que si no existen registros con esas características los campos de la tabla
+FactCurrencyRate van a venir nulos, elegir otra fecha para ver la diferencia).
+
+2. Para un análisis de cierre mensual, el equipo de Administración y Finanzas en conjunto con el equipo de Marketing, necesitan realizar
+una consulta utilizando RIGHT JOIN para traerse la información de las dos tablas mencionadas en el ejercicio anterior pero esta vez sin aplicar ningún filtro (Observar como el resultado cambia)
+
+3. El equipo de Marketing necesita realizar una visualización donde se compara la lista de precios de los competidores vs la interna de la
+empresa, para esto se deberá realizar una consulta utilizando FULL JOIN para cruzar toda la información que contienen las tablas
+DimProduct y DimProductSubcategory, filtrar los resultados para que el campo ListPrice no sea nulo (observar el comportamiento de los datos con la consulta, full join, ¿Se puede aplicar el filtro?)
+
+UNIDAD 4:
+Create
+
+1. El área de I+D para realizar una petición del área de Recursos Humanos, donde se listen las personas por nombre, apellido, edad y peso, deberá
+crear una tabla que se llame DimPersona y que contenga los siguientes campos
+a. Id (entero auto incremental)
+b. Nombre (tipo de dato texto)
+c. Apellido (tipo de dato texto)
+d. Edad (tipo de dato numérico entero)
+e. Peso (tipo de dato decimal)
+(Definir el tamaño de los campos para posteriormente insertar datos, el campo peso puede puede ser nulo el resto no)
+
+2. El equipo de I+D tiene que crear dos tablas de respaldo (backUp) de la tabla Dim_Account para realizar unas pruebas de carga de datos. Para
+esto, realizar una consulta SQL que cree dos tablas de respaldo con datos llamadas Dim_Account_Bkp1 y Dim_Account_Bkp2 a partir de la tabla Dim_Account
+(Deben tener la misma estructura las dos tablas)
+
+Insert
+
+1. Se realizaron 5 nuevos ingresos de personas en el área Comercial, por lo que el equipo de Recursos Humanos tiene que hacer el ingreso de
+estos, en la tabla creada con anterioridad DimPersona. Se debe armar una consulta que inserte 5 registros de distintas personas a la tabla
+DimPersona creada anteriormente (Dificultad: Tener en cuenta los campos que no deberían ir)
+
+Delete
+
+1. Luego de realizar las pruebas de carga de datos, el área de I+D ya no necesita utilizar la DimAccount_Bkp2, por lo que solicita armar una
+consulta SQL que borre todos los registros de la tabla DimAccount_Bkp2
+
+Update
+
+1. Para un análisis del equipo Comercial, se solicita realizar una actualización de datos de la tabla Bkp1, creada por el área de I+D para
+que en el campo CustomMemberOptions se actualice con el valor ‘N/A. Para esto, armar una consulta SQL que actualice el campo
+CustomMemberOptions de la tabla DimAccount_Bkp1 con el valor ‘N/A’ para todos los registros de la misma.
+
+2. El equipo de Comercial nuevamente necesita una actualización de datos en la tabla armada con anterioridad de Bkp1, en el cual se
+actualice el campo CustomMemberOptions con el valor ‘Cuenta’ y el campo CustomMembers con el valor ‘Usuario’ de la tabla DimAccount_Bkp1 con la condición de que el campo
+ParentAccountKey tiene que ser igual a 17. Realice una consulta de SQL para lograr dicha actualización.
