@@ -131,3 +131,41 @@ UPDATE Dim_Account_Bkp1 SET CustomMemberOptions = 'Cuenta', CustomMembers = 'Usu
 WHERE ParentAccountKey = 17
 
 
+---------------------------------********************** UNIDAD 5 *******************************-------------------
+
+use AdventureWorksDW2012
+
+SELECT *FROM DimCustomer
+SELECT *FROM DimGeography
+
+SELECT COUNT(*) CANTIDAD_CLIENTES, G.EnglishCountryRegionName
+FROM DimCustomer DC JOIN DimGeography G ON DC.GeographyKey = G.GeographyKey
+GROUP BY G.EnglishCountryRegionName
+HAVING COUNT(*) > 1900
+
+SELECT COUNT(FirstName), MIN(DateFirstPurchase), SpanishOccupation
+FROM DimCustomer
+GROUP BY SpanishOccupation
+ORDER BY MIN(DateFirstPurchase)
+
+--1.
+
+SELECT UPPER(FirstName + ' ' + LastName) NOMBRE_Y_APELLIDO,
+		REPLACE(Title, 'a', '@') TITLE,
+		CAST(VacationHours AS DECIMAL(18,2)) AS VacationHoursVacationHours,
+		LTRIM(VacationHours) ELIMINAR_ESPACIO_IZQUIERDO
+FROM DimEmployee
+
+--2
+
+SELECT LOWER(FirstName + ' ' + LastName) NOMBRE_Y_APELLIDO, HireDate FECHA_DE_INGRESO,
+	YEAR(HireDate) AÑO_INGRESO,
+	MONTH(HireDate) MES_INGRESO,
+	DATEADD(YEAR, 1, HireDate) ANIVERSARIO,
+	DATEDIFF(DAY, HireDate,  GETDATE()) DIAS
+FROM DimEmployee
+
+--3
+
+SELECT *
+FROM DimEmployee
