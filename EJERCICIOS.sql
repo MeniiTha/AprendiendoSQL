@@ -10,7 +10,7 @@ WHERE Status = 'Current'
 
 SELECT *
 FROM DimEmployee
-WHERE EmployeeKey > 10
+WHERE Status = 'Current' AND EmployeeKey > 10
 
 --1.
 
@@ -167,5 +167,63 @@ FROM DimEmployee
 
 --3
 
-SELECT *
-FROM DimEmployee
+SELECT *FROM DimProduct
+SELECT *FROM FactInternetSales
+
+
+SELECT EnglishProductName, OrderDateKey, TotalProductCost, COUNT(*)
+FROM DimProduct P JOIN FactInternetSales I ON P.ProductKey = I.ProductKey
+WHERE YEAR(OrderDate) = 2011 AND MONTH(OrderDate) = 01
+GROUP BY EnglishProductName, OrderDateKey, TotalProductCost
+HAVING COUNT(*) < 300
+
+
+--1
+
+SELECT SalesOrderNumber, MIN(UnitPrice) PRECIO_UNITARIO
+FROM FactInternetSales
+GROUP BY SalesOrderNumber
+
+--2
+
+SELECT SalesOrderNumber, MAX(UnitPrice)
+FROM FactInternetSales
+WHERE YEAR(OrderDate) = 2011 AND MONTH(OrderDate) = 02
+GROUP BY SalesOrderNumber
+
+--FUNCIONES   COUNT()   AVG()   SUM()
+
+--1
+
+SELECT EnglishProductName NOMBRE_PRODUCTO, P.ProductKey NRO_PRODUCTO, COUNT(*) CANTIDAD_VENDIDA , SUM(TotalProductCost) MONTO_TOTAL_VENDIDO
+FROM DimProduct P JOIN FactInternetSales F ON P.ProductKey = F.ProductKey
+WHERE OrderDateKey/100 = 201101
+GROUP BY EnglishProductName, P.ProductKey
+HAVING COUNT(*) < 300
+
+--2
+SELECT *FROM FactInternetSales
+
+SELECT ProductKey, AVG(TotalProductCost)--(SUM(TotalProductCost)/COUNT(*)) TOTAL
+FROM FactInternetSales
+WHERE MONTH(OrderDate) = 03 AND YEAR(OrderDate) = 2012
+GROUP BY ProductKey
+ORDER BY 1
+
+--	O P E R A D O R E S   A R I T M E T I C O S
+--1
+
+SELECT COUNT(ProductKey) * SUM(UnitPrice) MONTO_TOTAL
+FROM FactInternetSales 
+WHERE ProductKey = 310
+
+--2
+
+SELECT DENSE_RANK() OVER (ORDER BY CustomerKey) AS RANGO_DESCENDENTE
+FROM DimProduct
+
+
+
+
+
+
